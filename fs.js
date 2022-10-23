@@ -1,16 +1,39 @@
 const fs = require('fs');
 
-const first = fs.readFileSync('./data/first.txt', 'utf-8');
-const second = fs.readFileSync('./data/second.txt');
+fs.readFile('./data/first.txt', 'utf-8', (error, data) => {
+    error ? 
+    console.log(error): 
+    console.log(data);
 
-console.log(first);
-console.log(second.toString());
+    fs.readFile('./data/second.txt', 'utf-8', (error, data) => {
+        error ? 
+        console.log(error): 
+        console.log(data);
 
-const title = 'Este contenido se ha añadido';
+        fs.writeFile('./data/newfile2.txt', 'archivo creado desde fs', (err, data) => {
+            console.log(err);
+            console.log(data);
 
-fs.writeFileSync('./data/four.txt', title, {
-    flag: 'a'
-});
+            fs.writeFile('./data/newfile3.txt', 'archivo creado desde fs', (err, data) => {
+                console.log(err);
+                console.log(data);
+            })
+        })
+    })
+})
+
+
+// const first = fs.readFileSync('./data/first.txt', 'utf-8');
+// const second = fs.readFileSync('./data/second.txt');
+
+// console.log(first);
+// console.log(second.toString());
+
+// const title = 'Este contenido se ha añadido';
+
+// fs.writeFileSync('./data/four.txt', title, {
+//     flag: 'a'
+// });
 
 
 /* 
