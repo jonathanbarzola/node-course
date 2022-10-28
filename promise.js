@@ -1,8 +1,7 @@
-const { readFile } = require("fs");
-const { promisify } = require('util');
+const { readFile } = require("fs/promises");
 
 // Modulo "promisify" retorna un promesa
-const readFilePromise = promisify(readFile);
+// const readFilePromise = promisify(readFile);
 
 /* 
   const getText = (pathFile) => {
@@ -28,14 +27,14 @@ const readFilePromise = promisify(readFile);
 
 
 // ASYNC - AWAIT
-const obtenerData = async () => {
+async function read() {
   try {
 
-    const result1 = await readFilePromise("./data/first.txt", 'utf-8');
+    const result1 = await readFile("./data/first.txt", 'utf-8');
     console.log(result1);
-    const result2 = await readFilePromise("./data/second.txt", 'utf-8');
+    const result2 = await readFile("./data/second.txt", 'utf-8');
     console.log(result2);
-    const result3 = await readFilePromise("./data/third.txt", 'utf-8');
+    const result3 = await readFile("./data/third.txt", 'utf-8');
     console.log(result3);
 
   } catch (error) {
@@ -43,4 +42,4 @@ const obtenerData = async () => {
   }
 };
 
-obtenerData("./data/fourth.txt");
+read("./data/fourth.txt");
