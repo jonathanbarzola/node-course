@@ -1,17 +1,23 @@
 const { readFile } = require("fs");
-const { result } = require("lodash");
+const { promisify } = require('util');
 
-const getText = (pathFile) => {
-  return new Promise(function (resolve, reject) {
-    readFile(pathFile, "utf-8", (error, data) => {
-      if (error) {
-        reject(error);
-      }
+// Modulo "promisify" retorna un promesa
+const readFilePromise = promisify(readFile);
 
-      resolve(data);
+/* 
+  const getText = (pathFile) => {
+    return new Promise(function (resolve, reject) {
+      readFile(pathFile, "utf-8", (error, data) => {
+        if (error) {
+          reject(error);
+        }
+
+        resolve(data);
+      });
     });
-  });
-};
+  };
+*/
+
 
 // PROMISES
 // getText('./data/fourth.txt')
@@ -20,18 +26,18 @@ const getText = (pathFile) => {
 //     .then(result => console.log(result))
 //     .catch(e => console.log(e))
 
+
 // ASYNC - AWAIT
 const obtenerData = async () => {
   try {
-    const result1 = await getText("./data/first.txt");
+
+    const result1 = await readFilePromise("./data/first.txt", 'utf-8');
     console.log(result1);
-    const result2 = await getText("./data/second.txt");
+    const result2 = await readFilePromise("./data/second.txt", 'utf-8');
     console.log(result2);
-    const result3 = await getText("./data/third.txt");
-
-    throw new Error("Hijole krnal algo se averió");
-
+    const result3 = await readFilePromise("./data/third.txt", 'utf-8');
     console.log(result3);
+
   } catch (error) {
     console.log(error);
   }
